@@ -15,7 +15,8 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     
     ->withMiddleware(function (Middleware $middleware): void {
-         $middleware->append(VerifyAccessKey::class);
+        // Apply API key verification only to API routes, not to web routes
+        $middleware->appendToGroup('api', VerifyAccessKey::class);
     })
 
     ->withExceptions(function (Exceptions $exceptions): void {

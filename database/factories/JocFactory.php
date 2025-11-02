@@ -31,7 +31,7 @@ class JocFactory extends Factory
 
             'puntuacio' => $this->faker->randomFloat(1, 0, 10),
 
-            'fotografia' => $this->faker->imageUrl(640, 480, 'games', true),
+            'fotografia' => 'https://picsum.photos/640/360?random=' . $this->faker->unique()->numberBetween(1, 100000),
         ];
     }
 }

@@ -18,6 +18,6 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        Joc::factory(10)->times(1000)->create();
+        Joc::factory(10)->times(100)->create();
     }
 }

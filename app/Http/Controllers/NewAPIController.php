@@ -35,7 +35,8 @@ class NewAPIController extends Controller
             'data_publicacio' => 'required|date',
             'genere' => 'required|string|max:100',
             'puntuacio' => 'required|numeric|min:0|max:10',
-            'fotografia' => 'required|url',
+            // accept string and normalize to valid URL (we'll sanitize below)
+            'fotografia' => 'required|string',
         ];
 
         $validator = Validator::make($request->all(), $rules);
@@ -46,7 +47,10 @@ class NewAPIController extends Controller
             ];
         }
 
-        Joc::create($request->all());
+        $data = $request->all();
+        $data['fotografia'] = $this->normalizeFotografia($data['fotografia'] ?? null);
+
+        Joc::create($data);
         return ['created' => true];
     }
 
@@ -72,8 +76,31 @@ class NewAPIController extends Controller
     public function update(Request $request, string $id)
     {
         $joc = Joc::findOrFail($id);
-        $joc->update($request->all());
+        $data = $request->all();
+        if(array_key_exists('fotografia', $data)){
+            $data['fotografia'] = $this->normalizeFotografia($data['fotografia']);
+        }
+
+        $joc->update($data);
         return ['updated' => true];
+    }
+
+    /**
+     * Normalize a fotografia value into a valid URL. If empty or invalid, return a picsum placeholder.
+     */
+    private function normalizeFotografia(?string $url): string
+    {
+        $placeholder = 'https://picsum.photos/640/360?random=' . uniqid();
+        if(empty($url)){
+            return $placeholder;
+        }
+
+        // If it doesn't start with http/https, prepend https://
+        if(!preg_match('#^https?://#i', $url)){
+            $url = 'https://' . ltrim($url, '/');
+        }
+
+        return filter_var($url, FILTER_VALIDATE_URL) ? $url : $placeholder;
     }
 
     /**
