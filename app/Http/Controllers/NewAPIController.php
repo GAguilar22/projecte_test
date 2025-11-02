@@ -35,7 +35,6 @@ class NewAPIController extends Controller
             'data_publicacio' => 'required|date',
             'genere' => 'required|string|max:100',
             'puntuacio' => 'required|numeric|min:0|max:10',
-            // accept string and normalize to valid URL (we'll sanitize below)
             'fotografia' => 'required|string',
         ];
 

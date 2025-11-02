@@ -20,7 +20,7 @@ class JocFactory extends Factory
             'nom' => $this->faker->words(2, true),
 
             'estudi' => $this->faker->randomElement([
-                'Nintendo', 'Ubisoft', 'FromSoftware', 'Electronic Arts', 'Square Enix', 'Capcom', 'Valve', 'Bethesda', 'CD Projekt'
+                'Ubisoft', 'FromSoftware', 'Electronic Arts', 'Square Enix', 'Capcom', 'Valve', 'Bethesda', 'CD Projekt'
             ]),
 
             'data_publicacio' => $this->faker->date($format = 'Y-m-d', $max = 'now'),
