@@ -16,7 +16,7 @@
 
         <div class="mb-3">
             <label for="estudi" class="form-label">Estudi</label>
-            @php($estudis = ['Ubisoft','FromSoftware','Electronic Arts','Square Enix','Capcom','Valve','Bethesda','CD Projekt'])
+            @php($estudis = ['Nintendo', 'Ubisoft','FromSoftware','Electronic Arts','Square Enix','Capcom','Valve','Bethesda','CD Projekt'])
             <select class="form-select" name="estudi" id="estudi" required>
                 <option value="" disabled {{ old('estudi') ? '' : 'selected' }}>-- Selecciona un estudi --</option>
                 @foreach($estudis as $est)
