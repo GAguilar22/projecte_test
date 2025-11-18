@@ -51,6 +51,7 @@ class TaskTest extends TestCase
         // Comprova que existeix un registre amb el nom i estudi especificats
         $this->assertDatabaseHas('jocs', ['nom' => 'Test Game', 'estudi' => 'Test Studio']);
     }
+    
 
     /**
      * Test que verifica que podem eliminar un videojoc existent
