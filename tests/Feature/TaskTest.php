@@ -52,7 +52,6 @@ class TaskTest extends TestCase
         $this->assertDatabaseHas('jocs', ['nom' => 'Test Game', 'estudi' => 'Test Studio']);
     }
     
-
     /**
      * Test que verifica que podem eliminar un videojoc existent
      * Prova la funcionalitat de delete del CRUD
