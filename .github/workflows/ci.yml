@@ -1,7 +1,7 @@
 # Nom "humà" del workflow. Així és com el veurem a la pestanya Actions.
 name: CI (Laravel)
 
-# Bloc que defineix QUAN s'executa el workflow.
+# Bloc que defineix QUAN s'executa el workflow. 
 on:
   # 1) Es dispara en fer push a QUALSEVOL branca
   # Això executarà tests en cada push, independentment de la branca
