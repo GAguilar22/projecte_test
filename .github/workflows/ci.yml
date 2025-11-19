@@ -11,6 +11,7 @@ on:
   pull_request:
     # Només per a PRs que van cap a main
     branches: [ main ]
+    
 
 # Bloc de feines (jobs) que s’executaran.
 jobs:
