@@ -1,7 +1,12 @@
 # Nom "humà" del workflow. Així és com el veurem a la pestanya Actions.
 name: CI (Laravel)
 
-# Bloc que defineix QUAN s'executa el workflow.
+# Permisos necessaris per al workflow
+permissions:
+  contents: write
+  pull-requests: write
+
+# Bloc que defineix QUAN s'executa el workflow. 
 on:
   # 1) Es dispara en fer push a QUALSEVOL branca
   # Això executarà tests en cada push, independentment de la branca
@@ -11,6 +16,7 @@ on:
   pull_request:
     # Només per a PRs que van cap a main
     branches: [ main ]
+
 
 # Bloc de feines (jobs) que s’executaran.
 jobs:
@@ -81,3 +87,36 @@ jobs:
         # --no-coverage: no calculem cobertura (més ràpid per a una demo bàsica).
         # (Laravel invoca PHPUnit o Pest segons la config del projecte.)
         run: php artisan test --no-coverage
+
+      # Pas 7: Auto-merge a main si els tests passen i NO estem ja a main
+      - name: Auto merge to main if tests pass
+        # Només executa si: tests passen + no estem a la branca main + és un push (no PR)
+        if: success() && github.ref != 'refs/heads/main' && github.event_name == 'push'
+        run: |
+          # Configurar git amb identitat del bot
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # Obtenir el nom de la branca actual
+          BRANCH_NAME="${{ github.ref_name }}"
+          
+          # Fetch de totes les branques
+          git fetch origin
+          
+          # Canviar a main o crear-la des de la branca actual
+          if git show-ref --verify --quiet refs/remotes/origin/main; then
+            # Main existeix remotament, la fem checkout
+            git checkout main
+            git pull origin main
+            # Merge amb flags per evitar històries no relacionades i conflictes
+            git merge "origin/$BRANCH_NAME" -X theirs --no-ff --allow-unrelated-histories -m "Auto-merge: $BRANCH_NAME → main (tests passed)"
+          else
+            # Main no existeix, la creem des de la branca actual
+            git checkout -b main
+          fi
+          
+          # Push a main
+          git push origin main
+        env:
+          # Token necessari per fer push
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
