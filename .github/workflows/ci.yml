@@ -1,16 +1,16 @@
 # Nom "humà" del workflow. Així és com el veurem a la pestanya Actions.
 name: CI (Laravel)
 
-# Bloc que defineix QUAN s’executa el workflow.
+# Bloc que defineix QUAN s'executa el workflow.
 on:
-  # 1) Es dispara en fer push...
+  # 1) Es dispara en fer push a QUALSEVOL branca
+  # Això executarà tests en cada push, independentment de la branca
   push:
-    # ...però només si el push va a la branca 'main'.
-    # YAML permet arrays en una sola línia: [ main ] és equivalent a una llista amb un element.
-    branches: [ main ]
-  # 2) També es dispara quan s’obre/actualitza un pull request.
-  # No especifiquem branques aquí, per tant s’aplica a PRs entre qualsevol branca.
+  # 2) També es dispara quan s'obre/actualitza un pull request.
+  # Especialment important per a PRs cap a 'main'
   pull_request:
+    # Només per a PRs que van cap a main
+    branches: [ main ]
 
 # Bloc de feines (jobs) que s’executaran.
 jobs:
