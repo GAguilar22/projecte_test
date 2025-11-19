@@ -1,6 +1,11 @@
 # Nom "humà" del workflow. Així és com el veurem a la pestanya Actions.
 name: CI (Laravel)
 
+# Permisos necessaris per al workflow
+permissions:
+  contents: write
+  pull-requests: write
+
 # Bloc que defineix QUAN s'executa el workflow. 
 on:
   # 1) Es dispara en fer push a QUALSEVOL branca
