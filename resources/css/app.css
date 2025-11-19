@@ -9,3 +9,16 @@
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
+
+/* Fondo azul cielo personalizado */
+.bg-sky-gradient {
+    background: linear-gradient(135deg, #87CEEB 0%, #B8E5FF 50%, #E0F6FF 100%);
+    min-height: 100vh;
+}
+
+/* Mejorar legibilidad de las cards sobre fondo azul */
+.card {
+    background-color: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
