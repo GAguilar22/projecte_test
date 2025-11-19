@@ -92,14 +92,14 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           
-          # Fer fetch de main per assegurar que tenim la versió més recent
-          git fetch origin main
+          # Fetch de totes les branques
+          git fetch origin
           
-          # Canviar a main
-          git checkout main
+          # Canviar a main (o crear-la si no existeix localment)
+          git checkout -B main origin/main || git checkout -B main
           
-          # Merge de la branca actual (sense fast-forward per mantenir historial)
-          git merge origin/${{ github.ref_name }} --no-ff -m "Auto-merge: ${{ github.ref_name }} → main (tests passed)"
+          # Merge amb flag per permitir històries no relacionades
+          git merge origin/${{ github.ref_name }} --no-ff --allow-unrelated-histories -m "Auto-merge: ${{ github.ref_name }} → main (tests passed)"
           
           # Push a main
           git push origin main
