@@ -103,8 +103,8 @@ jobs:
             # Main existeix remotament, la fem checkout
             git checkout main
             git pull origin main
-            # Merge estratègia: acceptar sempre canvis de la branca feature
-            git merge "origin/$BRANCH_NAME" -X theirs --no-ff -m "Auto-merge: $BRANCH_NAME → main (tests passed)"
+            # Merge amb flags per evitar històries no relacionades i conflictes
+            git merge "origin/$BRANCH_NAME" -X theirs --no-ff --allow-unrelated-histories -m "Auto-merge: $BRANCH_NAME → main (tests passed)"
           else
             # Main no existeix, la creem des de la branca actual
             git checkout -b main
