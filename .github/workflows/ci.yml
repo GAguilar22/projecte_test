@@ -11,7 +11,7 @@ on:
   pull_request:
     # Només per a PRs que van cap a main
     branches: [ main ]
-    
+
 
 # Bloc de feines (jobs) que s’executaran.
 jobs:
@@ -82,3 +82,27 @@ jobs:
         # --no-coverage: no calculem cobertura (més ràpid per a una demo bàsica).
         # (Laravel invoca PHPUnit o Pest segons la config del projecte.)
         run: php artisan test --no-coverage
+
+      # Pas 7: Auto-merge a main si els tests passen i NO estem ja a main
+      - name: Auto merge to main if tests pass
+        # Només executa si: tests passen + no estem a la branca main + és un push (no PR)
+        if: success() && github.ref != 'refs/heads/main' && github.event_name == 'push'
+        run: |
+          # Configurar git amb identitat del bot
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # Fer fetch de main per assegurar que tenim la versió més recent
+          git fetch origin main
+          
+          # Canviar a main
+          git checkout main
+          
+          # Merge de la branca actual (sense fast-forward per mantenir historial)
+          git merge origin/${{ github.ref_name }} --no-ff -m "Auto-merge: ${{ github.ref_name }} → main (tests passed)"
+          
+          # Push a main
+          git push origin main
+        env:
+          # Token necessari per fer push
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
