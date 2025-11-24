@@ -13,15 +13,16 @@ class TaskTest extends TestCase
     // Això evita que els tests interfereixin entre ells
     use RefreshDatabase;
 
+
     /**
-     * Test que verifica que la pàgina principal carrega correctament
-     * Aquest és un test bàsic de "smoke test" que assegura que l'aplicació funciona
+     * Test que verifica que la pàgina principal es carrega correctament
+     * Comprova que la ruta '/' retorna un codi d'estat 200 (OK) i mostra el text 'Jocs'
+     * Això assegura que la pàgina d'inici del CRUD funciona i que el llistat de jocs es mostra
      */
     public function test_the_homepage_loads()
     {
-        // Simula una petició GET a la ruta principal '/'
-        // Verifica que la resposta tingui status HTTP 200 (èxit)
-        // Verifica que el contingut HTML contingui la paraula 'Jocs'
+        // Simula una petició GET a la pàgina principal ('/')
+        // Verifica que la resposta té codi d'estat 200 (OK) i que es veu el text 'Jocs' a la pàgina
         $this->get('/')->assertStatus(200)->assertSee('Jocs');
     }
 
@@ -43,15 +44,15 @@ class TaskTest extends TestCase
 
         // Simula l'enviament d'un formulari POST a la ruta '/jocs' amb les dades preparades
         $response = $this->post('/jocs', $jocData);
-        
+
         // Verifica que després de crear el joc, l'usuari és redirigit a la llista de jocs
         $response->assertRedirect('/jocs');
-        
+
         // Verifica que el nou joc s'ha guardat correctament a la base de dades
         // Comprova que existeix un registre amb el nom i estudi especificats
         $this->assertDatabaseHas('jocs', ['nom' => 'Test Game', 'estudi' => 'Test Studio']);
     }
-    
+
     /**
      * Test que verifica que podem eliminar un videojoc existent
      * Prova la funcionalitat de delete del CRUD
