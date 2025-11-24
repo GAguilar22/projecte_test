@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="d-flex justify-content-between align-items-center mb-3">
-        <h1 class="h3 mb-0">Jocs</h1>
+        <!-- <h1 class="h3 mb-0">Jocs</h1> -->
     </div>
 
     @if(session('success'))
