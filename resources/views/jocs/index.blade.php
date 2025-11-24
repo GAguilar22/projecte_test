@@ -5,9 +5,6 @@
 @section('content')
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h1 class="h3 mb-0">Jocs</h1>
-        <a href="{{ route('jocs.create') }}" class="btn btn-primary">
-            <i class="fas fa-plus me-1"></i> Crear Joc
-        </a>
     </div>
 
     @if(session('success'))
@@ -43,5 +40,5 @@
 
     <div class="mt-4">
         {{ $jocs->links('pagination::bootstrap-5') }}
-    </div>
+    <!-- Falta cerrar la llave de Blade aquí per provocar un error -->
 @endsection
