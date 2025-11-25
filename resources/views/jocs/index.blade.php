@@ -20,7 +20,7 @@
                         <h5 class="card-title">Nom: {{ $joc->nom }}</h5>
 
                         <div class="mt-auto d-flex gap-2">
-                            {{-- <a class="btn btn-sm btn-outline-primary" href="{{ route('jocs.show', $joc) }}">Veure</a>
+                            <a class="btn btn-sm btn-outline-primary" href="{{ route('jocs.show', $joc) }}">Veure</a>
                             <a class="btn btn-sm btn-outline-secondary" href="{{ route('jocs.edit', $joc) }}">Editar</a>
                             <form action="{{ route('jocs.destroy', $joc) }}" method="POST" class="m-0">
                                 @csrf
@@ -35,7 +35,7 @@
             <div class="col-12">
                 <div class="alert alert-info">No hi ha jocs.</div>
             </div>
-        @endforelse --}}
+        @endforelse
     </div>
 
     <div class="mt-4">
