@@ -13,5 +13,6 @@ class ExampleTest extends TestCase
     {
         //He modificat aquest test, per a que al fer el git push fallin els testos i veure que no fa merge a la branca main
         $this->assertTrue(false);
+        //  $this->assertTrue(true);
     }
 }
