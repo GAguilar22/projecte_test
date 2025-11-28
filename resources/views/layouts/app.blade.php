@@ -9,7 +9,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" defer></script>
     <style>
         body {
-            background: black;
+            background: whitesmoke;
             min-height: 100vh;
         }
         .card {

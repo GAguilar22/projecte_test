@@ -11,6 +11,7 @@ class ExampleTest extends TestCase
      */
     public function test_that_true_is_true(): void
     {
-        $this->assertTrue(true);
+        //He modificat aquest test, per a que al fer el git push fallin els testos i veure que no fa merge a la branca main
+        $this->assertTrue(false);
     }
 }
